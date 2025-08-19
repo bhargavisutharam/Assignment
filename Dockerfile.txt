@@ -1,0 +1,17 @@
+#use official python image (we are using slim as this is a basic application)
+FROM python:3.9-slim
+
+#set working directory
+WORKDIR /app
+
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+#copy app code
+COPY . .
+
+#Expose prot
+EXPSOE 5000
+
+CMD ["python","app.py"]
