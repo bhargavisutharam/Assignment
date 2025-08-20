@@ -1,4 +1,4 @@
-#use official python image (we are using slim as this is a basic application)
+#using official python image (we are using python slim as this is just a basic simple application)
 FROM python:3.9-slim
 
 #set working directory
@@ -12,6 +12,6 @@ RUN pip install -r requirements.txt
 COPY . .
 
 #Expose prot
-EXPSOE 5000
+EXPOSE 5000
 
 CMD ["python","app.py"]
