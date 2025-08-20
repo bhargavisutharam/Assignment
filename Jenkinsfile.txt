@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/<your-username>/<your-repo>.git'
+                git branch: 'master', url: 'https://github.com/bhargavisutharam/Assignment.git'
             }
         }
 
@@ -33,10 +33,9 @@ pipeline {
             steps {
                 script {
                     sh """
-                        kubectl apply -f k8s/namespace.yaml
-                        kubectl apply -f k8s/deployment-${DEPLOY_VERSION}.yaml
+                        kubectl apply -f k8s/deployment_${DEPLOY_VERSION}.yaml
                         kubectl apply -f k8s/service.yaml
-                        kubectl rollout status deploy/${APP_NAME}-${DEPLOY_VERSION} -n ${NAMESPACE} --timeout=120s
+                        kubectl rollout status deploy/${APP_NAME}-${DEPLOY_VERSION} --timeout=120s
                     """
                 }
             }
@@ -47,7 +46,7 @@ pipeline {
                 script {
                     sh """
                         echo "Switching Service to ${DEPLOY_VERSION}"
-                        kubectl patch service ${APP_NAME}-service -n ${NAMESPACE} -p '{"spec":{"selector":{"app":"${APP_NAME}","version":"${DEPLOY_VERSION}"}}}'
+                        kubectl patch service ${APP_NAME}-service -p '{"spec":{"selector":{"app":"${APP_NAME}","version":"${DEPLOY_VERSION}"}}}'
                     """
                 }
             }
