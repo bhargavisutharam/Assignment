@@ -35,7 +35,7 @@ pipeline {
                     sh """
                         kubectl apply -f k8s/deployment_${DEPLOY_VERSION}.yaml
                         kubectl apply -f k8s/service.yaml
-                        kubectl rollout status deploy/${APP_NAME}-${DEPLOY_VERSION} --timeout=120s
+                        kubectl rollout status deployment/${APP_NAME}-${DEPLOY_VERSION} --timeout=120s
                     """
                 }
             }
